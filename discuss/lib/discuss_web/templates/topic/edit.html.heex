@@ -1,0 +1,9 @@
+<%= form_for @changeset, Routes.topic_path(@conn, :update, @topic), fn f -> %>
+ <div class='form-group'>
+    <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+ </div>
+    <%= error_tag f, :title%>
+    <%= submit "Update", class: "btn waves-effect waves-light" %>
+     <%= link "Delete", to: Routes.topic_path(@conn, :delete, @topic ), method: :delete, class: "waves-effect waves-light btn red lighten-2"%>
+
+<% end %>
