@@ -4,21 +4,40 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "Discuss", suffix: " · Phoenix Framework" %>
+
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/css/styles.css")}/>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css">
+    
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
      
   </head>
   <body>
     <nav class='light-blue'>
       <div class="nav-wrapper container">
-        <a href="/" class="brand-logo">
-          Discussion
-        </a>
+        <div class="logo">
+          <a href="/" class="brand-logo">
+            Discussion
+          </a>
+        </div>
+        <div class="signin">
+          <%= if @conn.assigns[:user] do %>
+            <a class="waves-effect waves-light btn btn-small red" href={Routes.auth_path(@conn, :signout)}>Logout</a>
+          <% else %>
+            <a id="github-button" class="btn-small btn-block btn-social github btn-github" href={Routes.auth_path(@conn, :request, "github")}>
+              <i class="fa fa-github"></i> Sign in with GitHub
+            </a>
+          <% end %>
+        </div>
       </div>
     </nav>
     <%= @inner_content %>
